@@ -19,7 +19,7 @@ cd pfsenseHoneypot
 sudo ./install.sh
 ```
 ### Control Raspberry Pi in the portable setup
-In the portable scenario is possible to SSH from Ethernet Tethering device to Raspberry Pi scanning for client local IP on Tethering device Ethernet Interface
+In the portable scenario is possible to SSH from Ethernet Tethering device to SSH enabled Raspberry Pi scanning for client local IP on Tethering device Ethernet Interface
 #### Portable setup
 [<ins>https://www.reddit.com/r/raspberry_pi/comments/pm1kww/psa_you_can_use_android_11s_new_ethernet/</ins>](https://www.reddit.com/r/raspberry_pi/comments/pm1kww/psa_you_can_use_android_11s_new_ethernet/)
 ### Deauthenticate clients from target AP
