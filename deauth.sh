@@ -54,7 +54,7 @@ if [ ${#interfaces[@]} -gt 1 ]; then
         echo "[?] Specify CHANNEL of the target AP from airodump-ng output:"
         printf "> "
         read channel 
-        echo "$bssid" > blacklist.txt
+        printf "$bssid" > blacklist.txt
     fi
 
 else
