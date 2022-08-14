@@ -44,7 +44,7 @@ tail -f /var/www/html/data.log
 sudo cat /var/log/dnsmasq.log
 ```
 ### Change SSID from CLI
-Edit **/etc/hostapd/hostapd.conf** and modify SSID, then
+Default SSID is "Free Wi-Fi", edit **/etc/hostapd/hostapd.conf** to change SSID, then
 ```sh
 sudo systemctl restart hostapd.service
 ```
