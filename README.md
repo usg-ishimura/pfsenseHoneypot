@@ -1,7 +1,7 @@
 
 # pfSense Honeypot
 ### Morning! _Nice day for phishing_ ain't it? :fishing_pole_and_fish:
-This proof of concept project contains a script that installs RaspAP and Nodogsplash and patches them to run a portable malicious free network, capturing Google credentials and logging DNS queries on Raspberry Pi, it also includes a deauthentication script to disconnect clients from their AP, making them wanting to connect to the Honeypot.
+This project installs RaspAP and Nodogsplash and patches them to run a portable malicious free network, capturing Google credentials and logging DNS queries on Raspberry Pi, it also includes a deauthentication script to disconnect clients from their AP, making them want to connect to the Honeypot.
 ### Minimum hardware requirements, home setup and no deauth
 - Raspberry Pi
 - Ethernet connection
